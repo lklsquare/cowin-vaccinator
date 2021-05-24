@@ -1,0 +1,20 @@
+{
+  "name": "cowin-vaccination",
+  "version": "1.0.0",
+  "description": "nodejs script to find the open slots for vaccination",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "lakshya kumar",
+  "license": "ISC",
+  "dependencies": {
+    "alert-sound-notify": "^0.0.8",
+    "axios": "^0.21.1",
+    "chalk": "^3.0.0",
+    "minimist": "^1.2.5",
+    "node-cron": "^3.0.0",
+    "node-notifier": "^9.0.1",
+    "tty-table": "^4.1.3"
+  }
+}
