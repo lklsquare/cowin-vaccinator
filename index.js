@@ -10,15 +10,15 @@ if (args._[0] === 'states') {
 } else if (args._[0] === 'districts' && typeof (args.state) === 'number') {
     districts(args.state)
 } else if (args._[0] == 'slots-task' && args.districts) {
-        let districts = (typeof(args.districts)) === 'number'? String(args.districts): args.districts
+    let districts = (typeof (args.districts)) === 'number' ? String(args.districts) : args.districts
     const task = cron.schedule('*/1 * * * *', () => {
-        slots(districts, (args.dose && args.dose !== 'boolean')? args.dose: 0 , (args.age && typeof (args.age) !== 'boolean') ? args.age : 0)
+        slots(districts, (args.dose && args.dose !== 'boolean') ? args.dose : 0, (args.age && typeof (args.age) !== 'boolean') ? args.age : 0, (args.nextDay)? 1 : 0)
     });
     task.start();
-}else if (args._[0] == 'slots' && args.districts) {
-    let districts = (typeof(args.districts)) === 'number'? String(args.districts): args.districts
-    slots(districts, (args.dose && args.dose !== 'boolean')? args.dose: 0 , (args.age && typeof (args.age) !== 'boolean') ? args.age : 0)
-}else{
+} else if (args._[0] == 'slots' && args.districts) {
+    let districts = (typeof (args.districts)) === 'number' ? String(args.districts) : args.districts
+    slots(districts, (args.dose && args.dose !== 'boolean') ? args.dose : 0, (args.age && typeof (args.age) !== 'boolean') ? args.age : 0, (args.nextDay)? 1 : 0)
+} else {
     console.log('Unknown command')
 }
 

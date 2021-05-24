@@ -65,6 +65,7 @@ These are the commands required to make the most out of the project.
 **NOTE**
 
 The flag `--district` should always be either a number or comma separated numbers, the flag `--age` is optional and can only be having values ***18*** or ***45*** for now. The flag `--dose` is optional and can be either ***1*** or ***2***.
+Use the flag `--nextDay` to find the available slot from the next day.
 
 ---
 

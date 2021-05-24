@@ -47,15 +47,20 @@ function concatenate(centersData) {
 
 
 // function to check slots.
-module.exports = function (districts, dose=0, age = 0) {
+module.exports = function (districts, dose=0, age = 0, nextDay=0) {
 
   const date = new Date();
   let todaysDate = `${date.getDate()}-${String(
     date.getMonth() + 1
   ).padStart(2, "0")}-${date.getFullYear()}`;
+  const time = date.toTimeString();
+
+  let dateToCheck = `${date.getDate()+(nextDay)}-${String(
+    date.getMonth() + 1
+  ).padStart(2, "0")}-${date.getFullYear()}`;
 
   let promiseData = districts.trim().split(',').map((item) => {
-    return { "district": item, "date": todaysDate }
+    return { "district": item, "date": dateToCheck }
   })
 
   promiseCollector(fetchByDistrict, promiseData).then((response) => {
@@ -116,7 +121,7 @@ module.exports = function (districts, dose=0, age = 0) {
     if (finalData.length) {
 
       console.log(
-        chalk.underline.bgRed.bold(`Showing Slots from - ${todaysDate}`)
+        chalk.underline.bgRed.bold(`Showing Slots from - ${dateToCheck}`)
       );
 
       switch (age) {
@@ -186,7 +191,11 @@ module.exports = function (districts, dose=0, age = 0) {
         wait: true,
         sound: 'purr'
       });
+      
     }
+    console.log(
+      chalk.black.bgWhite.bold(`\nchecked on ${time} on ${todaysDate}\n`)
+    );
 
   }, (reason) => {
     console.log(reason)

@@ -8,6 +8,6 @@ exports.config = {
     align: "left",
     color: "white",
     truncate: "...",
-    width: "90%",
+    width: "100%",
   };
  
