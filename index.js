@@ -11,13 +11,13 @@ if (args._[0] === 'states') {
     districts(args.state)
 } else if (args._[0] == 'slots-task' && args.districts) {
     let districts = (typeof (args.districts)) === 'number' ? String(args.districts) : args.districts
-    const task = cron.schedule('*/1 * * * *', () => {
-        slots(districts, (args.dose && args.dose !== 'boolean') ? args.dose : 0, (args.age && typeof (args.age) !== 'boolean') ? args.age : 0, (args.nextDay)? 1 : 0)
+    const task = cron.schedule('*/3 * * * *', () => {
+        slots(districts, (args.dose && args.dose !== 'boolean') ? args.dose : 0, (args.age && typeof (args.age) !== 'boolean') ? args.age : 0, (args.nextDay)? 1 : 0, args.getOTP | false)
     });
     task.start();
 } else if (args._[0] == 'slots' && args.districts) {
     let districts = (typeof (args.districts)) === 'number' ? String(args.districts) : args.districts
-    slots(districts, (args.dose && args.dose !== 'boolean') ? args.dose : 0, (args.age && typeof (args.age) !== 'boolean') ? args.age : 0, (args.nextDay)? 1 : 0)
+    slots(districts, (args.dose && args.dose !== 'boolean') ? args.dose : 0, (args.age && typeof (args.age) !== 'boolean') ? args.age : 0, (args.nextDay)? 1 : 0, args.getOTP | false)
 } else {
     console.log('Unknown command')
 }

@@ -1,7 +1,7 @@
 exports.config = {
     headers: { "User-Agent": "Axios - console app" },
-  };
-  exports.options = {
+};
+exports.options = {
     borderStyle: "solid",
     borderColor: "blue",
     headerAlign: "center",
@@ -9,5 +9,7 @@ exports.config = {
     color: "white",
     truncate: "...",
     width: "100%",
-  };
- 
+};
+exports.userConfig = {
+    'registered-number': '9********1'
+};

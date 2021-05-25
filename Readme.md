@@ -1,12 +1,19 @@
 <!-- ABOUT THE PROJECT -->
 ## Easily Find a vaccination slot across India
 
-This is a nodejs script for finding the slot in the list of districts and filter it based on different criteria. The script will provide a cron job as well which will periodically run and provide notifications if the slots are available.
+This is a nodejs script for finding the slot in the list of districts and filter it based on different criteria. The script will provide a cron job as well which will periodically run and provide notifications if the slots are available.The script can also help you to quickly open the cowin login page, enter registered number and generate OTP automatically.
 
 Here's why:
 * Simple and efficient usage
 * Provides filters
 * Provide cron job and notifications :smile:
+* Automatically Generates OTP once the slots are available
+
+**NOTE**
+
+Provide sufficient permissions for ***notifications*** and ***browser automation*** to work.
+
+---
 
 
 
@@ -15,6 +22,12 @@ Here's why:
 
 This is an example of how you may give instructions on setting up your script locally.
 To get a local copy up and running follow these simple example steps.
+
+**NOTE**
+
+***The Cowin open APIs are now cached and can have delay of upto half an hour***.
+
+---
 
 ### Prerequisites
 
@@ -65,11 +78,29 @@ These are the commands required to make the most out of the project.
 **NOTE**
 
 The flag `--district` should always be either a number or comma separated numbers, the flag `--age` is optional and can only be having values ***18*** or ***45*** for now. The flag `--dose` is optional and can be either ***1*** or ***2***.
-Use the flag `--nextDay` to find the available slot from the next day.
+Use the flag `--nextDay` to find the available slot from the next day, use flag `--getOTP` to open ***Cowin portal*** and generate OTP directly from the program.
 
 ---
 
 
+**NOTE**
+
+To use the flag `--getOTP` setup the `chromedriver` from [here](https://chromedriver.chromium.org/downloads) and add the driver path in `PATH` variable of the system. Make sure to provide necessary permissions. 
+***Make sure to download the driver that matches the chrome version on the system***
+
+---
+
+### Add the chromedriver to the mac system
+
+1. Download the `chromedriver` from [here](https://chromedriver.chromium.org/downloads) and extract it in `/user/local/bin/`
+  
+1. Grant permission for the `chromedriver`
+   ```sh
+   xattr -d com.apple.quarantine chromedriver 
+   spctl --add --label 'Approved' chromedriver
+   ```
+
+3. Replace the `'registered-number': '9********1'` in `util/config.js` with your registered number
 
 
 <!-- CONTRIBUTING -->

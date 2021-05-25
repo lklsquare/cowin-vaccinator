@@ -1,9 +1,10 @@
 const axios = require('axios');
 const table = require("tty-table");
-const { config, options } = require('./config');
+const { config, options, userConfig } = require('./config');
 const chalk = require("chalk");
 const cron = require('node-cron');
 const notifier = require("node-notifier");
+const { Builder, By, Key, until } = require('selenium-webdriver');
 
 
 // function to fetch slot by district
@@ -19,6 +20,23 @@ function fetchByDistrict(dataObject, resolve, reject) {
     }).catch((e) => {
       reject('rejected because of error: ' + e)
     })
+}
+
+async function navigate(registeredNumber) {
+  let driver = await new Builder().forBrowser('chrome').build();
+  try {
+    // Navigate to Url
+    await driver.get('https://selfregistration.cowin.gov.in/');
+
+    // Enter text "cheese" and perform keyboard action "Enter"
+    await driver.findElement(By.id('mat-input-0')).sendKeys(registeredNumber, Key.ENTER);
+    driver.findElement(By.className('login-btn')).click();
+
+
+  }
+  catch (e) {
+    console.log("cannot proceed, got error ", e)
+  }
 }
 
 // function to collect promise
@@ -47,7 +65,7 @@ function concatenate(centersData) {
 
 
 // function to check slots.
-module.exports = function (districts, dose=0, age = 0, nextDay=0) {
+module.exports = function (districts, dose = 0, age = 0, nextDay = 0, getOTP = false) {
 
   const date = new Date();
   let todaysDate = `${date.getDate()}-${String(
@@ -55,7 +73,7 @@ module.exports = function (districts, dose=0, age = 0, nextDay=0) {
   ).padStart(2, "0")}-${date.getFullYear()}`;
   const time = date.toTimeString();
 
-  let dateToCheck = `${date.getDate()+(nextDay)}-${String(
+  let dateToCheck = `${date.getDate() + (nextDay)}-${String(
     date.getMonth() + 1
   ).padStart(2, "0")}-${date.getFullYear()}`;
 
@@ -72,10 +90,10 @@ module.exports = function (districts, dose=0, age = 0, nextDay=0) {
 
       item.sessions.forEach((session) => {
         districtName = item.district_name;
-        doseAvailable = (dose !== 1 && dose !== 2) ? session.available_capacity_dose1+session.available_capacity_dose2 : (dose===1?session.available_capacity_dose1: session.available_capacity_dose2)
+        doseAvailable = (dose !== 1 && dose !== 2) ? session.available_capacity_dose1 + session.available_capacity_dose2 : (dose === 1 ? session.available_capacity_dose1 : session.available_capacity_dose2)
         // based on user age choice filter the data
         if (age != 18 && age != 45 && doseAvailable) {
-          
+
           let data = {
             Center: item.name,
             Pincode: item.pincode,
@@ -191,11 +209,15 @@ module.exports = function (districts, dose=0, age = 0, nextDay=0) {
         wait: true,
         sound: 'purr'
       });
-      
+
     }
     console.log(
       chalk.black.bgWhite.bold(`\nchecked on ${time} on ${todaysDate}\n`)
     );
+
+    if (getOTP) {
+      navigate(userConfig['registered-number'])
+    }
 
   }, (reason) => {
     console.log(reason)
