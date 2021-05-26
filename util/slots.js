@@ -210,14 +210,14 @@ module.exports = function (districts, dose = 0, age = 0, nextDay = 0, getOTP = f
         sound: 'purr'
       });
 
+      if (getOTP) {
+        navigate(userConfig['registered-number'])
+      }
+
     }
     console.log(
       chalk.black.bgWhite.bold(`\nchecked on ${time} on ${todaysDate}\n`)
     );
-
-    if (getOTP) {
-      navigate(userConfig['registered-number'])
-    }
 
   }, (reason) => {
     console.log(reason)
