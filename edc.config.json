@@ -1,0 +1,12 @@
+{
+  "defaultBranch": "master",
+  "description": "JS script and cronjob to find vaccination centres within multiple districts",
+  "isFavorite": false,
+  "name": "Cowin Vaccinator",
+  "repo": "cowin-vaccinator",
+  "isGitLinked": true,
+  "owner": "lklsquare",
+  "createdAt": "2021-06-04T10:57:53.963Z",
+  "updatedAt": "2021-06-04T10:57:53.963Z",
+  "objectId": "eCE1fKQwf0"
+}
